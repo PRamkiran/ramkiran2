@@ -1,0 +1,180 @@
+FILE AND DIRECTORY SYSTEM CALLS
+
+
+
+13. A program to read data from key board and write in a file using file system calls
+
+
+
+#include<stdio.h>
+#include<fcntl.h>
+FILE *fp;
+char fn[20],ch;
+main(int agrc,char *argv[ ])
+{
+printf("enter file name");
+scanf("%s",&fn);
+printf("enter data");
+Key();
+}
+Key()
+{
+fp=fopen(fn,"w");
+do
+{
+ch=getchar();
+fputc(ch,fp);
+}
+while(ch!='k');
+fclose(fp);
+}
+~
+
+
+
+~
+"datakey.c" 22L, 259C written
+[dmgv@LinuxServer ~]$ cc datakey.c
+[dmgv@LinuxServer ~]$ ./a.out
+enter file namestudent
+enter data im from IT
+This is OS lab 
+
+
+
+
+
+14.A program to read data from a file and write in another file using file system calls.
+
+
+
+
+#include<stdio.h>
+#include<fcntl.h>
+#include<unistd.h>
+main(int agrc,char *argv[])
+{
+char buf[20];
+int fd1,fd2,n;
+fd1=open(argv[1],O_RDONLY);
+fd2=open(argv[2],O_WRONLY);
+n=read(fd1,buf,sizeof(buf));
+write(fd2,buf,n);
+close(fd1);
+close(fd2);
+}
+
+
+
+~
+"readwrite.c" 14L, 243C written
+[dmgv@LinuxServer ~]$ cc readwrite.c
+[dmgv@LinuxServer ~]$ touch class
+[dmgv@LinuxServer ~]$ cc readwrite.c
+[dmgv@LinuxServer ~]$ ./a.out student class
+[dmgv@LinuxServer ~]$ cat student
+
+hai
+                                                       
+[dmgv@LinuxServer ~]$ cat class                        
+                                                       
+hai                                                    
+
+
+
+
+
+
+
+
+
+
+
+
+15.A program to display details using directory system calls
+
+
+
+
+
+#include<stdio.h>
+#include<fcntl.h>
+#include<unistd.h>
+#include<dirent.h>
+main(int agrc,char *argv[])
+{
+DIR *dp;
+struct dirent *p;
+dp=opendir(argv[1]);
+while((p=readdir(dp))!=NULL)
+{
+printf(" %d %s \n",p->d_ino,p->d_name);
+}
+closedir(dp);
+}
+
+
+
+
+
+
+
+
+~
+"dirdetails.c" 15L, 241C written
+[dmgv@LinuxServer ~]$ cc dirdetails.c
+[dmgv@LinuxServer ~]$ ./a.out d1
+ 13796969 ..
+ 13796985 .
+ 13796988 file1
+ 13796989 file2
+
+
+
+
+
+
+
+
+16.A program to implement  directory system calls.
+
+
+
+#include<stdio.h>
+main()
+{
+system("pwd");
+chdir("/");
+system("pwd");
+chdir("/home/dmgv");
+system("pwd");
+}
+
+
+
+
+
+~
+"dirsyscall.c" [New] 9L, 107C written
+[dmgv@LinuxServer ~]$ cc dirsyscall.c
+[dmgv@LinuxServer ~]$ ./a.out
+/home/dmgv
+/
+/home/dmgv
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
